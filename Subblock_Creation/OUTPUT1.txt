@@ -1,0 +1,20 @@
+Given Block Address: 10.1.0.0
+Given Prefix: 16
+Given No of subblocks to be created: 3
+
+New prefix : 25.0
+Subblock 1 Range : 10.1.0.0.-10.1.0.127.
+Subblock size is : 128 addresses
+Unused address in subblock : 29
+
+New prefix : 24.0
+Subblock 2 Range : 10.1.0.128.-10.1.1.127.
+Subblock size is : 256 addresses
+Unused address in subblock : 106
+
+New prefix : 29.0
+Subblock 3 Range : 10.1.1.128.-10.1.1.135.
+Subblock size is : 8 addresses
+Unused address in subblock : 1
+
+Reserved addresses : 65144
