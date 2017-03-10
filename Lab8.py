@@ -12,25 +12,24 @@ import random
 no_of_packets=input("Enter the number of packets: ")
 no_of_packets=int(no_of_packets)
 
-array=np.zeros((no_of_packets,6))
+array=np.zeros((no_of_packets,6)) #Initializing array
 array=array.astype(int)
 
-for i in range(0,no_of_packets):
+for i in range(0,no_of_packets):            #Randomly generating inputs
     packetno=i
     arrival_time=random.randint(0,50)
-    service_time=5
+    service_time=5                       #Static service time - could be changed
     priority=random.randint(1,9)
     newrow=[packetno,arrival_time,service_time,priority,0,0]
     array[i]=newrow
     #x = np.vstack([x, newrow])
 
-#packtno,arrivaltime,servictim,priority
 print("Random array generated")
 print(tabulate(array[:,:-1],headers=["Process","Arrival time","Process time","Priority","Waitingtime"]))
 print()
 
 print("Array sorted by Arrival time")
-array=array[array[:,1].argsort()]
+array=array[array[:,1].argsort()]      #Sorting respect to arrival time
 print(tabulate(array[:,:-1],headers=["Process","Arrival time","Process time","Priority","Waitingtime"]))
 
 print()
@@ -43,23 +42,23 @@ next_pocess=0  #Name of the next process
 next_priority=0 #Larger number has more priority
 checker=0 #Checking if no process in time t? Increment by time 1
 
-while(np.any(array[:,5]!=1)):
+while(np.any(array[:,5]!=1)):                #Processing first element
     if(array[0][5]!=1):
         process="P"+str(array[0][0])+" "
         time=time+int(array[0][2])
-        array[0][5]=1
+        array[0][5]=1                        #Making flag 1 i.e. element visited
         array[0][4]=str(time-int(array[0][1])-int(array[0][2]))
         #print(tabulate(array[:,:-1],headers=["Process","Arrival time","Process time","Priority","Waiting time"]))
 
     else:
         for i in range(0,no_of_packets):
-            if(time >= int(array[i][1]))&(next_priority<array[i][3])&(array[i][5]==0):
+            if(time >= int(array[i][1]))&(next_priority<array[i][3])&(array[i][5]==0):   #comparing arrival time,priority and flag
                 index=i
                 next_pocess=int(array[i][0])
                 next_priority=int(array[i][3])
                 checker=checker+1
                 
-        if(checker==0):
+        if(checker==0):     #If no element can be processed within time range, increment time
             time=time+1
             checker=0
         else:
@@ -69,9 +68,6 @@ while(np.any(array[:,5]!=1)):
             checker=0
             process=process+"P"+str(next_pocess)+" "
             next_priority=0
-            #print(process)
-            #print(tabulate(array[:,:-1],headers=["Process","Arrival time","Process time","Priority","Waiting time"]))
-        #print("Updated Time : "+str(time))
               
 print("After priority scheduling : ")
 print(tabulate(array[:,:-1],headers=["Process","Arrival time","Process time","Priority","Waitingtime"]))
